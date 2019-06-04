@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="8dp"
     tools:context=".MainActivity">
 
     <EditText
@@ -67,5 +67,13 @@
         android:layout_marginEnd="108dp"
         android:layout_marginBottom="-1dp"
         android:layout_toStartOf="@+id/textView_amount"
-        android:text="REMOVR" />
+        android:text="REMOVE" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="403dp"
+        android:layout_height="501dp"
+        android:layout_below="@+id/button_remove"/>
+
+
 </RelativeLayout>
