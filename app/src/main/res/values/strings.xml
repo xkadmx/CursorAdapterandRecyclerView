@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CursorAdapter and RecyclerView</string>
+    <string name="n">N:</string>
 </resources>
