@@ -1,5 +1,7 @@
 package com.example.cursoradapterandrecyclerview;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    private SQLiteDatabase mDatabase;
     private EditText mEditTextName;
     private TextView mTextViewAmount;
     private int mAmount = 0;
@@ -17,7 +20,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mEditTextName = findViewById(R.id.editText_name);
+        GroceryDBHelper dbHelper = new GroceryDBHelper(this);
+        mDatabase = dbHelper.getWritableDatabase();  // writabble not readable as initial
+
+        mEditTextName = (EditText) findViewById(R.id.editText_name);
         mTextViewAmount = findViewById(R.id.textView_amount);
 
         Button buttonIncrease = findViewById(R.id.button_increase);
@@ -42,5 +48,30 @@ public class MainActivity extends AppCompatActivity {
                 addItem();   // TODO build the method addItem
             }
         });
+
+        private void increase(){
+            mAmount++;
+            mTextViewAmount.setText(String.valueOf(mAmount));
+        }
+        private void decrease(){
+            if(mAmount>0){
+            mAmount--;
+            mTextViewAmount.setText(String.valueOf(mAmount));
+        }
+        private void addItem(){
+            if(mEditTextName.getText().toString().trim().length() == 0 || mAmount == 0){
+            return;
+            }
+            String name = mEditTextName.getText().toString();
+                ContentValues cv = new ContentValues();
+                cv.put(GroceryContract.GroceryEntry.COLUMN_NAME, name);
+                cv.put(GroceryContract.GroceryEntry.COLUMN_AMOUNT, mAmount);
+
+                mDatabase.insert(GroceryContract.GroceryEntry.TABLE_NAME, null, cv);
+                mEditTextName.getText().clear(); // to clear the space for the next entry
+            }
+        }
     }
 }
+
+
