@@ -1,6 +1,7 @@
 package com.example.cursoradapterandrecyclerview;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -69,6 +70,17 @@ public class MainActivity extends AppCompatActivity {
 
                 mDatabase.insert(GroceryContract.GroceryEntry.TABLE_NAME, null, cv);
                 mEditTextName.getText().clear(); // to clear the space for the next entry
+            }
+            private Cursor getAllItems(){
+                return mDatabase.query(
+                        GroceryContract.GroceryEntry.TABLE_NAME,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        GroceryContract.GroceryEntry.TIME_STAMP + " DESC"
+                );
             }
         }
     }
