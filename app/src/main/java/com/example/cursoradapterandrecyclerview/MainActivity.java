@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            private Cursor getAllItems(){  // A BUG HAPPENED
+            private Cursor getAllItems(){  // A BUG HAPPENED // update: no, it's not the case
                 return mDatabase.query(
                         GroceryContract.GroceryEntry.TABLE_NAME,
                         null,
