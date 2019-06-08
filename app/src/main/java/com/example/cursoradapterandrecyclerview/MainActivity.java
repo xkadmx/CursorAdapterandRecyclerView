@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
+    private GroceryAdapter mAdapter;
     private EditText mEditTextName;
     private TextView mTextViewAmount;
     private int mAmount = 0; // initial amount = 0
@@ -24,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
 
         GroceryDBHelper dbHelper = new GroceryDBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();  // writable not readable as initial
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new GroceryAdapter(this, getAllItems());
+        recyclerView.setAdapter(mAdapter);
 
         mEditTextName = (EditText) findViewById(R.id.editText_name);
         mTextViewAmount = findViewById(R.id.textView_amount);
@@ -70,9 +78,12 @@ public class MainActivity extends AppCompatActivity {
                 cv.put(GroceryContract.GroceryEntry.COLUMN_AMOUNT, mAmount);
 
                 mDatabase.insert(GroceryContract.GroceryEntry.TABLE_NAME, null, cv);
+                mAdapter.swapCursor(getAllItems());
                 mEditTextName.getText().clear(); // to clear the space for the next entry
             }
-            private Cursor getAllItems() {
+
+
+            private Cursor getAllItems(){  // A BUG HAPPENED
                 return mDatabase.query(
                         GroceryContract.GroceryEntry.TABLE_NAME,
                         null,

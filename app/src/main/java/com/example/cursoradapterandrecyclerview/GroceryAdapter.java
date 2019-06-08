@@ -40,7 +40,7 @@ public class GroceryAdapter extends RecyclerView.Adapter <GroceryAdapter.Grocery
 
     @Override
     public void onBindViewHolder(GroceryViewHolder groceryViewHolder, int position) {
-        if(!mCursor.move(position)){
+        if(!mCursor.moveToPosition(position)){
             return;
         }
         String name = mCursor.getString(mCursor.getColumnIndex(GroceryContract.GroceryEntry.COLUMN_NAME));
