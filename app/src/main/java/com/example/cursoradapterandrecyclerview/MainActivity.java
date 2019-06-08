@@ -14,7 +14,8 @@ public class MainActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
     private EditText mEditTextName;
     private TextView mTextViewAmount;
-    private int mAmount = 0;
+    private int mAmount = 0; // initial amount = 0
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         GroceryDBHelper dbHelper = new GroceryDBHelper(this);
-        mDatabase = dbHelper.getWritableDatabase();  // writabble not readable as initial
+        mDatabase = dbHelper.getWritableDatabase();  // writable not readable as initial
 
         mEditTextName = (EditText) findViewById(R.id.editText_name);
         mTextViewAmount = findViewById(R.id.textView_amount);
