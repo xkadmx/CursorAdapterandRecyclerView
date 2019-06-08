@@ -12,7 +12,7 @@ public class GroceryAdapter extends RecyclerView.Adapter <GroceryAdapter.Grocery
     private Context mContext;
     private Cursor mCursor;
 
-    public GroceryAdapter(Context context, Cursor cursor){
+    public GroceryAdapter(Context context, Cursor cursor){  // cursor gets data from database
         mContext = context;
         mCursor = cursor;
 
@@ -30,11 +30,11 @@ public class GroceryAdapter extends RecyclerView.Adapter <GroceryAdapter.Grocery
         }
     }
 
-    @NonNull
+
     @Override
-    public GroceryViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public GroceryViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View view = inflater.inflate(R.layout.grocery_item, parent,false;
+        View view = inflater.inflate(R.layout.grocery_item, parent,false);
         return new GroceryViewHolder(view);
     }
 
