@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 mDatabase.insert(GroceryContract.GroceryEntry.TABLE_NAME, null, cv);
                 mEditTextName.getText().clear(); // to clear the space for the next entry
             }
-            private Cursor getAllItems(){
+            private Cursor getAllItems() {
                 return mDatabase.query(
                         GroceryContract.GroceryEntry.TABLE_NAME,
                         null,
@@ -80,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         null,
                         null,
                         null,
-                        GroceryContract.GroceryEntry.TIME_STAMP + " DESC"
-                );
+                        GroceryContract.GroceryEntry.TIME_STAMP + " DESC");
             }
         }
     }
