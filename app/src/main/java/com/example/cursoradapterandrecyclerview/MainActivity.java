@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }// TODO check if getAllItems() starts with a new block
 
 
-            private Cursor getAllItems(){  // A BUG HAPPENED
+            private Cursor getAllItems(){  // A BUG HAPPENED // update: no, it's not the case
                 return mDatabase.query(
                         GroceryContract.GroceryEntry.TABLE_NAME,
                         null,
