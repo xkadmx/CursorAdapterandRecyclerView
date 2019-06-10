@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
+
 public class MainActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
     private GroceryAdapter mAdapter;
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new GroceryAdapter(this, getAllItems());
         recyclerView.setAdapter(mAdapter);
 
-        mEditTextName = (EditText) findViewById(R.id.editText_name);
+        mEditTextName = findViewById(R.id.editText_name);
         mTextViewAmount = findViewById(R.id.textView_amount);
 
         Button buttonIncrease = findViewById(R.id.button_increase);
@@ -43,56 +45,62 @@ public class MainActivity extends AppCompatActivity {
         buttonIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                increase(); //TODO build the method increase
+                increase();
             }
         });
         buttonDecrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                decrease(); //TODO build the method decrease
+                decrease();
             }
         });
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addItem();   // TODO build the method addItem
+                addItem();
             }
         });
+    }
 
-        private void increase(){
+        private void increase () {
             mAmount++;
             mTextViewAmount.setText(String.valueOf(mAmount));
         }
-        private void decrease(){
+        private void decrease () {
             if (mAmount > 0) {
                 mAmount--;
                 mTextViewAmount.setText(String.valueOf(mAmount));
             }
         }
-        private void addItem(){
-            if(mEditTextName.getText().toString().trim().length() == 0 || mAmount == 0)
+        private void addItem () {
+            if (mEditTextName.getText().toString().trim().length() == 0 || mAmount == 0) {
                 return;
-            }
-            String name = mEditTextName.getText().toString();
-                ContentValues cv = new ContentValues();
-                cv.put(GroceryContract.GroceryEntry.COLUMN_NAME, name);
-                cv.put(GroceryContract.GroceryEntry.COLUMN_AMOUNT, mAmount);
+        }
 
-                mDatabase.insert(GroceryContract.GroceryEntry.TABLE_NAME, null, cv);
-                mAdapter.swapCursor(getAllItems());
-                mEditTextName.getText().clear(); // to clear the space for the next entry
-        }
-        private Cursor getAllItems(){  // A BUG HAPPENED // update: no, it's not the case // it was the problem with } and the block
-             return mDatabase.query(
-                    GroceryContract.GroceryEntry.TABLE_NAME,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    GroceryContract.GroceryEntry.TIME_STAMP + " DESC");
-            }
-        }
+        String name = mEditTextName.getText().toString();
+        ContentValues cv = new ContentValues();
+        cv.put(GroceryContract.GroceryEntry.COLUMN_NAME, name);
+        cv.put(GroceryContract.GroceryEntry.COLUMN_AMOUNT, mAmount);
+
+        mDatabase.insert(GroceryContract.GroceryEntry.TABLE_NAME, null, cv);
+        mAdapter.swapCursor(getAllItems());
+        mEditTextName.getText().clear();
+    }
+
+    private Cursor getAllItems() { // it was the problem with } and the block
+        return mDatabase.query(
+                GroceryContract.GroceryEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                GroceryContract.GroceryEntry.TIME_STAMP + " DESC"
+        );
+    }
+}
+
+
 
 
 

@@ -39,26 +39,29 @@ public class GroceryAdapter extends RecyclerView.Adapter <GroceryAdapter.Grocery
     }
 
     @Override
-    public void onBindViewHolder(GroceryViewHolder groceryViewHolder, int position) {
+    public void onBindViewHolder(GroceryViewHolder holder, int position) {
         if(!mCursor.moveToPosition(position)){
             return;
         }
         String name = mCursor.getString(mCursor.getColumnIndex(GroceryContract.GroceryEntry.COLUMN_NAME));
         int amount = mCursor.getInt(mCursor.getColumnIndex(GroceryContract.GroceryEntry.COLUMN_AMOUNT));
 
-        groceryViewHolder.nameText.setText(name);
-        groceryViewHolder.countText.setText(String.valueOf(amount));
+        holder.nameText.setText(name);
+        holder.countText.setText(String.valueOf(amount));
 
     }
 
     @Override
     public int getItemCount() {
+
         return mCursor.getCount();
     }
     public void swapCursor(Cursor newCursor){
         if(mCursor != null){
             mCursor.close();
         }
+
+
         mCursor = newCursor;
 
         if (newCursor != null){
