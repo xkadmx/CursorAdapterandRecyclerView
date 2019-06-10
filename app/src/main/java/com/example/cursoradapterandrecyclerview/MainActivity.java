@@ -64,13 +64,14 @@ public class MainActivity extends AppCompatActivity {
             mTextViewAmount.setText(String.valueOf(mAmount));
         }
         private void decrease(){
-            if(mAmount>0){
-            mAmount--;
-            mTextViewAmount.setText(String.valueOf(mAmount));
+            if (mAmount > 0) {
+                mAmount--;
+                mTextViewAmount.setText(String.valueOf(mAmount));
+            }
         }
         private void addItem(){
-            if(mEditTextName.getText().toString().trim().length() == 0 || mAmount == 0){
-            return;
+            if(mEditTextName.getText().toString().trim().length() == 0 || mAmount == 0)
+                return;
             }
             String name = mEditTextName.getText().toString();
                 ContentValues cv = new ContentValues();
@@ -80,21 +81,18 @@ public class MainActivity extends AppCompatActivity {
                 mDatabase.insert(GroceryContract.GroceryEntry.TABLE_NAME, null, cv);
                 mAdapter.swapCursor(getAllItems());
                 mEditTextName.getText().clear(); // to clear the space for the next entry
-            }// TODO check if getAllItems() starts with a new block
-
-
-            private Cursor getAllItems(){  // A BUG HAPPENED // update: no, it's not the case
-                return mDatabase.query(
-                        GroceryContract.GroceryEntry.TABLE_NAME,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        GroceryContract.GroceryEntry.TIME_STAMP + " DESC");
+        }
+        private Cursor getAllItems(){  // A BUG HAPPENED // update: no, it's not the case // it was the problem with } and the block
+             return mDatabase.query(
+                    GroceryContract.GroceryEntry.TABLE_NAME,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    GroceryContract.GroceryEntry.TIME_STAMP + " DESC");
             }
         }
-    }
-}
+
 
 
