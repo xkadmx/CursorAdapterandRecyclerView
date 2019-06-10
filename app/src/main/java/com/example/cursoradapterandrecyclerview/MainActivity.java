@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 mDatabase.insert(GroceryContract.GroceryEntry.TABLE_NAME, null, cv);
                 mAdapter.swapCursor(getAllItems());
                 mEditTextName.getText().clear(); // to clear the space for the next entry
-            }
+            }// TODO check if getAllItems() starts with a new block
 
 
             private Cursor getAllItems(){  // A BUG HAPPENED
