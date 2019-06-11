@@ -67,7 +67,7 @@
         android:id="@+id/recyclerview"
         android:layout_width="403dp"
         android:layout_height="501dp"
-        android:layout_below="@+id/button_remove"/>
+        android:layout_below="@+id/button_add" />
 
 
 </RelativeLayout>
